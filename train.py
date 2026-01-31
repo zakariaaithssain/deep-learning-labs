@@ -95,7 +95,7 @@ def train(model, dataloader, num_epochs:int, lr:float, device) -> list[dict]:
                 val_loss = validate(model, criterion, device)
 
                 logging.debug(
-                    f"epoch {epoch:03d} | train loss {train_loss:.4f} | val loss {val_loss:.4f}"
+                    f"epoch {epoch:03d} | train cross entropy {train_loss:.4f} | val cross entropy {val_loss:.4f}"
                 )
 
                 # early stopping
@@ -111,14 +111,14 @@ def train(model, dataloader, num_epochs:int, lr:float, device) -> list[dict]:
                                  "best_state.pt")
                 else:
                     patience_counter += 1
-                    logging.debug(f"validation loss did not improve at epoch {epoch}")
+                    logging.debug(f"validation cross entropy did not improve at epoch {epoch}")
 
                 if patience_counter >= patience:
                     logging.warning(f"early stopping triggered after {patience} waiting epochs. best state saved to 'best_state.pt'")
                     break
 
                 if epoch % 10 == 0 or epoch==99: 
-                    logging.info(f"epoch {epoch:03d} | train loss {train_loss:.4f} | val loss {val_loss:.4f}")
+                    logging.info(f"epoch {epoch:03d} | train cross entropy {train_loss:.4f} | val cross entropy {val_loss:.4f}")
 
 
 
