@@ -114,7 +114,7 @@ def train(model, dataloader, num_epochs:int, lr:float, device) -> list[dict]:
                     logging.debug(f"validation cross entropy did not improve at epoch {epoch}")
 
                 if patience_counter >= patience:
-                    logging.warning(f"early stopping triggered after {patience} waiting epochs. best state saved to 'best_state.pt'")
+                    logging.warning(f"early stopping triggered after {patience} waiting epochs. min cross entropy loss: {best_val_loss}; epoch: {epoch}; best state saved to 'best_state.pt'")
                     break
 
                 if epoch % 10 == 0 or epoch==99: 
@@ -122,6 +122,7 @@ def train(model, dataloader, num_epochs:int, lr:float, device) -> list[dict]:
 
 
 
+#do not track gradient
 @torch.no_grad()
 def validate(model, criterion, device):
     "to be used for early stopping inside `train`"
