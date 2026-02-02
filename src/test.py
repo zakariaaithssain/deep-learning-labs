@@ -1,4 +1,4 @@
-from src.functions import test, sklearn_classif_report
+from src.functions import test, report_and_conf_matrix
 from src.mlp import MultiLayerPerceptron
 from src.config import X_test, y_test, DOTPT_FILE_PATH
 
@@ -18,9 +18,10 @@ if __name__ == "__main__":
     model.load_state_dict(checkpoint["best_model_state"])
 
     try:
+        #this calculates only recall and sends it to the test.log file
         test(model, test_data=test_data, device=device)
-        report = sklearn_classif_report(model, X_test, y_test)
-        print(report)
+        #this gives a complete classification report to terminal, and plots a confusion matrix
+        report_and_conf_matrix(model, X_test, y_test)
         exit(0)
     except KeyboardInterrupt: 
           logger.warning("testing interrupted manually.")

@@ -23,3 +23,7 @@ however, we also implemented a classification report function, we get the follow
 | **Accuracy** |           |        | **0.82** | 89      |
 | **Macro avg**| 0.82      | 0.82   | 0.82     | 89      |
 | **Weighted avg** | 0.82 | 0.82   | 0.82     | 89
+
+
+#### confusion matrix: 
+! [confusion matrix](confusion_matrix.png)

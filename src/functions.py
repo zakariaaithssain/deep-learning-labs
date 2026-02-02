@@ -1,8 +1,9 @@
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 
 from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryRecall
 
+import matplotlib.pyplot as plt 
 import torch 
 import logging 
 
@@ -145,8 +146,9 @@ def test(model, test_data:torch.utils.data.Dataset, device:torch.DeviceObjType, 
 
 
 
-def sklearn_classif_report(model, X_test:torch.Tensor, y_test:torch.Tensor):
-    "build scikit learn classfication report from the testing data."
+def report_and_conf_matrix(model, X_test:torch.Tensor, y_test:torch.Tensor):
+    """build scikit learn classfication report and confusion matrix from the testing data.  
+    I didn't use separated functions to avoid redundant model calls"""
 
     with torch.no_grad():
         logits = model(X_test)
@@ -161,6 +163,16 @@ def sklearn_classif_report(model, X_test:torch.Tensor, y_test:torch.Tensor):
         y_pred,
         target_names=["healthy", "sick"]
     )
-
-    return report
+    print(report)
+    #confusion matrix
+    ConfusionMatrixDisplay.from_predictions(y_true,
+                                            y_pred,
+                                            display_labels=["healthy", "sick"],
+                                            cmap="Blues",
+                                            normalize='true'
+                                               )
+    plt.title("confusion matrix")
+    plt.tight_layout()
+    plt.savefig("confusion_matrix.png", dpi=300, bbox_inches="tight")
+    plt.show()
      

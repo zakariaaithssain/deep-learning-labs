@@ -1,5 +1,5 @@
-[2026-02-02 18:54:04,934] [INFO] test: final testing started.
-[2026-02-02 18:54:04,940] [INFO] test: Recall for batch 0: 0.8095238208770752
-[2026-02-02 18:54:04,945] [INFO] test: Recall for batch 1: 0.8947368264198303
-[2026-02-02 18:54:04,950] [INFO] test: Recall for batch 2: 0.875
-[2026-02-02 18:54:04,951] [INFO] test: Recall on all testing data: 0.8541666865348816
+[2026-02-02 19:22:42,005] [INFO] test: final testing started.
+[2026-02-02 19:22:42,012] [INFO] test: Recall for batch 0: 0.8636363744735718
+[2026-02-02 19:22:42,017] [INFO] test: Recall for batch 1: 0.75
+[2026-02-02 19:22:42,021] [INFO] test: Recall for batch 2: 1.0
+[2026-02-02 19:22:42,023] [INFO] test: Recall on all testing data: 0.8541666865348816
