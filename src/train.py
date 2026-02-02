@@ -22,7 +22,7 @@ if __name__ == "__main__":
     lr = 1e-3
     patience = 20 
     try:
-        train(model, train_dataloader, num_epochs, lr, device, patience, valid_dataloader)
+        train(model, train_dataloader, num_epochs, lr, device, valid_dataloader, patience)
         exit(0)
     except KeyboardInterrupt: 
           logger.warning("training interrupted manually.")

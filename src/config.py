@@ -7,9 +7,11 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 
+#file paths
 READY_DATA_PATH = Path("data/ready/ready.joblib")
-DOTPT_FILE = Path("best_state.pt")
+DOTPT_FILE_PATH = Path("best_state.pt")
 
+#logging levels
 TRAIN_LOGGING_LVL = "INFO"
 TEST_LOGGING_LVL = "INFO"
 

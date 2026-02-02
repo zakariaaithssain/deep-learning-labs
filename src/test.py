@@ -1,6 +1,6 @@
 from src.functions import test, sklearn_classif_report
 from src.mlp import MultiLayerPerceptron
-from src.config import X_test, y_test, DOTPT_FILE
+from src.config import X_test, y_test, DOTPT_FILE_PATH
 
 import torch
 import logging
@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     input_dim = X_test.size(dim=-1)
     model = MultiLayerPerceptron(input_dim)
-    checkpoint = torch.load(DOTPT_FILE, map_location=device)
+    checkpoint = torch.load(DOTPT_FILE_PATH, map_location=device)
     model.load_state_dict(checkpoint["best_model_state"])
 
     try:

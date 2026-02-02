@@ -13,4 +13,13 @@ we use the `Heart Disease UCI dataset` (over 900 data points), after preprocessi
 
 
 ### metrics: 
-since our task is a binary classification for maximising the heart disease detection (minimizing False Negatives), we focus on the `Recall metric` to evaluate the model in the testing phase.  
+since our task is a binary classification for maximising the heart disease detection (minimizing False Negatives), we focus on the `Recall metric` to evaluate the model in the testing phase (89 data points).   
+however, we also implemented a classification report function, we get the following metrics:   
+
+| class        | precision | `recall` | F1-score | support |
+|--------------|-----------|--------|----------|---------|
+| Healthy      | 0.82      | 0.78   | 0.80     | 41      |
+| Sick         | 0.82      | `0.85`   | 0.84     | 48      |
+| **Accuracy** |           |        | **0.82** | 89      |
+| **Macro avg**| 0.82      | 0.82   | 0.82     | 89      |
+| **Weighted avg** | 0.82 | 0.82   | 0.82     | 89

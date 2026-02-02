@@ -3,20 +3,17 @@ from sklearn.metrics import classification_report
 from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryRecall
 
-from typing import Optional
-from pathlib import Path
-
 import torch 
 import logging 
 
-from src.config import setup_logging
+from src.config import setup_logging, DOTPT_FILE_PATH
 setup_logging()
 
 
 
 
 
-def train(model, train_dataloader:DataLoader, num_epochs:int, lr:float, device:torch.device, patience: int=20, valid_dataloader:Optional[DataLoader] = None): 
+def train(model, train_dataloader:DataLoader, num_epochs:int, lr:float, device:torch.device, valid_dataloader:DataLoader, patience: int=20): 
         logger = logging.getLogger("train")
         model.to(device)
         #Adam with L2 regularization, regularization strength 1e-4
@@ -64,32 +61,31 @@ def train(model, train_dataloader:DataLoader, num_epochs:int, lr:float, device:t
                         optimizer.step()
                 train_loss/= n_batches
                 
-                if valid_dataloader: 
-                    # validation for early stopping
-                    val_loss = validate(model, criterion, valid_dataloader, device)
+                # validation for early stopping
+                val_loss = validate(model, criterion, valid_dataloader, device)
 
-                    logger.debug(
-                        f"epoch {epoch:03d} | train cross entropy {train_loss:.4f} | val cross entropy {val_loss:.4f}"
-                    )
+                logger.debug(
+                    f"epoch {epoch:03d} | train cross entropy {train_loss:.4f} | val cross entropy {val_loss:.4f}"
+                )
 
-                    # early stopping
-                    if val_loss <= best_val_loss:
-                        best_val_loss = val_loss
-                        patience_counter = 0
-                        logger.debug(f"patience counter reinitialized.")
-                        #save the state of the best model so far, allows as to increase patience, that will prevent stopping because of noise. 
-                        torch.save(
-                            {"best_model_state":model.state_dict(),
-                            "best_validation_loss": best_val_loss,
-                            "epoch":epoch}, 
-                                    "best_state.pt")
-                    else:
-                        patience_counter += 1
-                        logger.debug(f"validation cross entropy did not improve at epoch {epoch}")
+                # early stopping
+                if val_loss <= best_val_loss:
+                    best_val_loss = val_loss
+                    patience_counter = 0
+                    logger.debug(f"patience counter reinitialized.")
+                    #save the state of the best model so far, allows as to increase patience, that will prevent stopping because of noise. 
+                    torch.save(
+                        {"best_model_state":model.state_dict(),
+                        "best_validation_loss": best_val_loss,
+                        "epoch":epoch}, 
+                                DOTPT_FILE_PATH)
+                else:
+                    patience_counter += 1
+                    logger.debug(f"validation cross entropy did not improve at epoch {epoch}")
 
-                    if patience_counter >= patience:
-                        logger.warning(f"early stopping triggered after {patience} waiting epochs. min cross entropy loss: {best_val_loss}; epoch: {epoch}; best state saved to 'best_state.pt'")
-                        break
+                if patience_counter >= patience:
+                    logger.warning(f"early stopping triggered after {patience} waiting epochs. min cross entropy loss: {best_val_loss}; epoch: {epoch}; best state saved to 'best_state.pt'")
+                    break
 
                 if epoch % 10 == 0 or epoch==99: 
                     logger.info(f"epoch {epoch:03d} | train cross entropy {train_loss:.4f} | val cross entropy {val_loss:.4f}")
