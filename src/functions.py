@@ -1,3 +1,4 @@
+import os
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 
 from torch.utils.data import DataLoader
@@ -173,6 +174,7 @@ def report_and_conf_matrix(model, X_test:torch.Tensor, y_test:torch.Tensor):
                                                )
     plt.title("confusion matrix")
     plt.tight_layout()
-    plt.savefig("confusion_matrix.png", dpi=300, bbox_inches="tight")
+    os.makedirs("imgs", exist_ok = True)
+    plt.savefig("imgs/confusion_matrix.png", dpi=300, bbox_inches="tight")
     plt.show()
      

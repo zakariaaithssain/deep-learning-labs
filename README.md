@@ -26,4 +26,51 @@ however, we also implemented a classification report function, we get the follow
 
 
 #### confusion matrix: 
-! [confusion matrix](confusion_matrix.png)
+<p align="center">
+  <img src="imgs/confusion_matrix.png" width="400">
+</p>
+
+
+### how to run: 
+- **clone the repo:**
+```bash
+#clone the repo 
+git clone https://github.com/zakariaaithssain/MLPerceptron.git
+```   
+
+using `uv` python package manager:   
+
+- set up the environment:  
+```bash
+#make sure you have uv
+uv --version
+#if not install it: 
+curl -LsSf https://astral.sh/uv/install.sh | sh
+ 
+#then uv will setup things
+uv sync
+```   
+
+- run: 
+```bash
+#if you want to train the model
+uv run -m src.train 
+#test
+uv run -m src.test
+```
+
+- or just use regular python setup:   
+```bash
+python -m venv .venv
+source .venv/bin/activate
+#this is too slow use uv hhhhh
+python -m pip install -r requirements.txt
+#then after setup: 
+#train
+python -m src.train
+#test
+python -m src.test
+```
+check also the `preprocess.ipynb` if you would want to make further feature selection and data preprocessing.  
+
+
