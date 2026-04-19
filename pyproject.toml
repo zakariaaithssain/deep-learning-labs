@@ -3,12 +3,19 @@ name = "deep-learning"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "ipykernel>=7.2.0",
     "kagglehub>=1.0.0",
     "keras>=3.14.0",
     "matplotlib>=3.10.8",
+    "nltk>=3.9.4",
     "numpy>=2.4.4",
     "pandas>=3.0.2",
+    "pip>=26.0.1",
     "scikit-learn>=1.8.0",
+    "spacy>=3.8.13",
+    "tensorflow>=2.21.0",
+    "tensorflow-keras>=0.1",
 ]
